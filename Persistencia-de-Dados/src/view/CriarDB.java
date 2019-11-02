@@ -27,64 +27,76 @@ public class CriarDB extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        tfNomeBanco = new javax.swing.JTextField();
+        btCriar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btSelBanco = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mnCriarBd = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        mnUsarBd = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Novo banco de dados");
         setBackground(new java.awt.Color(245, 245, 245));
         setResizable(false);
 
-        jTextField1.setToolTipText("Nome do banco de dados a ser criado");
+        tfNomeBanco.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tfNomeBanco.setToolTipText("Nome do banco de dados a ser criado");
+        tfNomeBanco.setName("tfNomeBanco"); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton1.setText("Criar");
+        btCriar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btCriar.setText("Criar");
+        btCriar.setName("btCriar"); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Criar novo banco de dados");
+        jLabel1.setFocusable(false);
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton2.setText("Selecionar banco");
+        btSelBanco.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btSelBanco.setText("Selecionar banco");
+        btSelBanco.setName("btSelBanco"); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel2.setText("Nome do banco: ");
+        jLabel2.setFocusable(false);
 
         jMenu1.setText("Banco de dados");
 
-        jMenuItem2.setText("Criar banco de dados");
-        jMenu1.add(jMenuItem2);
-        jMenu1.add(jSeparator1);
-
-        jMenuItem3.setText("Usar banco de dados");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+        mnCriarBd.setText("Criar banco de dados");
+        mnCriarBd.setName("mnCriarBd"); // NOI18N
+        mnCriarBd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnCriarBdMouseClicked(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(mnCriarBd);
+        jMenu1.add(jSeparator1);
+
+        mnUsarBd.setText("Usar banco de dados");
+        mnUsarBd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnUsarBdActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnUsarBd);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Ajuda");
 
-        jMenuItem1.setText("Sair");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mnSair.setText("Sair");
+        mnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mnSairActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu2.add(mnSair);
 
         jMenuBar1.add(jMenu2);
 
@@ -104,12 +116,12 @@ public class CriarDB extends javax.swing.JFrame {
                         .addGap(160, 160, 160)
                         .addComponent(jLabel2)
                         .addGap(40, 40, 40)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfNomeBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(225, 225, 225)
-                        .addComponent(jButton2)
+                        .addComponent(btSelBanco)
                         .addGap(154, 154, 154)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(179, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -119,12 +131,12 @@ public class CriarDB extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNomeBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(92, 92, 92)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSelBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(115, Short.MAX_VALUE))
         );
 
@@ -133,13 +145,18 @@ public class CriarDB extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mnSairActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void mnUsarBdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnUsarBdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_mnUsarBdActionPerformed
+
+    private void mnCriarBdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnCriarBdMouseClicked
+        tfNomeBanco.setText("");
+        
+    }//GEN-LAST:event_mnCriarBdMouseClicked
 
     /**
      * @param args the command line arguments
@@ -178,17 +195,17 @@ public class CriarDB extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btCriar;
+    private javax.swing.JButton btSelBanco;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenuItem mnCriarBd;
+    private javax.swing.JMenuItem mnSair;
+    private javax.swing.JMenuItem mnUsarBd;
+    private javax.swing.JTextField tfNomeBanco;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,16 +5,21 @@
  */
 package view;
 
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author guilh
  */
 public class CriarDB extends javax.swing.JFrame {
-
+    UsarDB usarDB;
     /**
      * Creates new form TelaInicial
      */
     public CriarDB() {
+        usarDB = new UsarDB();
+        usarDB.setTelaInicial(this);
         initComponents();
     }
 
@@ -61,6 +66,11 @@ public class CriarDB extends javax.swing.JFrame {
         btSelBanco.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         btSelBanco.setText("Selecionar banco");
         btSelBanco.setName("btSelBanco"); // NOI18N
+        btSelBanco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSelBancoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel2.setText("Nome do banco: ");
@@ -70,9 +80,9 @@ public class CriarDB extends javax.swing.JFrame {
 
         mnCriarBd.setText("Criar banco de dados");
         mnCriarBd.setName("mnCriarBd"); // NOI18N
-        mnCriarBd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mnCriarBdMouseClicked(evt);
+        mnCriarBd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnCriarBdActionPerformed(evt);
             }
         });
         jMenu1.add(mnCriarBd);
@@ -107,20 +117,19 @@ public class CriarDB extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(270, 270, 270)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(270, 270, 270)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(160, 160, 160)
                         .addComponent(jLabel2)
                         .addGap(40, 40, 40)
                         .addComponent(tfNomeBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(225, 225, 225)
+                        .addGap(224, 224, 224)
                         .addComponent(btSelBanco)
-                        .addGap(154, 154, 154)
+                        .addGap(157, 157, 157)
                         .addComponent(btCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(179, Short.MAX_VALUE))
         );
@@ -133,14 +142,12 @@ public class CriarDB extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNomeBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(92, 92, 92)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btSelBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(115, Short.MAX_VALUE))
+                    .addComponent(btSelBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(120, 120, 120))
         );
-
-        getAccessibleContext().setAccessibleName("Novo banco de dados");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -151,12 +158,26 @@ public class CriarDB extends javax.swing.JFrame {
 
     private void mnUsarBdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnUsarBdActionPerformed
         // TODO add your handling code here:
+        String[] teste = new String[]{"Teste 1", "Teste 2"};
+        String nomeBd = "Prompt de Comando - " + dialogSelecionarBd(teste);
+        usarDB.setTitle(nomeBd);
+        usarDB.setLbTituloBanco(nomeBd);
+        usarDB.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_mnUsarBdActionPerformed
 
-    private void mnCriarBdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnCriarBdMouseClicked
+    private void mnCriarBdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCriarBdActionPerformed
         tfNomeBanco.setText("");
-        
-    }//GEN-LAST:event_mnCriarBdMouseClicked
+    }//GEN-LAST:event_mnCriarBdActionPerformed
+
+    private void btSelBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelBancoActionPerformed
+        String[] teste = new String[]{"Teste 1", "Teste 2"};
+        String nomeBd = "Prompt de Comando - " + dialogSelecionarBd(teste);
+        usarDB.setTitle("nomeBd");
+        usarDB.setLbTituloBanco(nomeBd);
+        usarDB.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_btSelBancoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,6 +213,13 @@ public class CriarDB extends javax.swing.JFrame {
                 new CriarDB().setVisible(true);
             }
         });
+    }
+    
+    public static String dialogSelecionarBd(String[] listaBancos) {
+        JComboBox cbBancos = new JComboBox(listaBancos);
+        cbBancos.setEditable(true);
+        JOptionPane.showMessageDialog(null, cbBancos, "Selecione o banco que deseja utilizar", JOptionPane.QUESTION_MESSAGE);
+        return cbBancos.getSelectedItem().toString();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

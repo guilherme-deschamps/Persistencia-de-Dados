@@ -1,5 +1,6 @@
 package br.udesc.udescdb;
 // Generated from SQLite.g4 by ANTLR 4.7.2
+import model.AntLR.SQLiteParser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

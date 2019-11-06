@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import br.udesc.udescdb.SQLiteBaseListener;
 import br.udesc.udescdb.SQLiteLexer;
-import br.udesc.udescdb.SQLiteParser;
+import model.AntLR.SQLiteParser;
 
 public class Teste {
 

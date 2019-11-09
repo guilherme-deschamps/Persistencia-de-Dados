@@ -6,6 +6,16 @@
 package view;
 
 import control.SystemControl;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -167,9 +177,8 @@ public class CriarDB extends javax.swing.JFrame {
     }//GEN-LAST:event_mnSairActionPerformed
 
     private void mnUsarBdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnUsarBdActionPerformed
-        // TODO add your handling code here:
-        String[] teste = new String[]{"Teste 1", "Teste 2"};
-        String nomeBd = "Prompt de Comando - " + dialogSelecionarBd(teste);
+        // TODO add your handling code here:List<String> bancos = new ArrayList();
+        String nomeBd = "Prompt de Comando - " + dialogSelecionarBd();
         usarDB.setTitle(nomeBd);
         usarDB.setLbTituloBanco(nomeBd);
         usarDB.setVisible(true);
@@ -181,8 +190,8 @@ public class CriarDB extends javax.swing.JFrame {
     }//GEN-LAST:event_mnCriarBdActionPerformed
 
     private void btSelBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelBancoActionPerformed
-        String[] teste = new String[]{"Teste 1", "Teste 2"};
-        String nomeBd = "Prompt de Comando - " + dialogSelecionarBd(teste);
+
+        String nomeBd = "Prompt de Comando - " + dialogSelecionarBd();
         usarDB.setTitle("nomeBd");
         usarDB.setLbTituloBanco(nomeBd);
         usarDB.setVisible(true);
@@ -239,8 +248,13 @@ public class CriarDB extends javax.swing.JFrame {
         });
     }
 
-    public static String dialogSelecionarBd(String[] listaBancos) {
-        JComboBox cbBancos = new JComboBox(listaBancos);
+    public static String dialogSelecionarBd() {
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+        File file = new File(s + File.separator + "databases");
+        String[] directories = file.list((File current, String name) -> new File(current, name).isDirectory());
+
+        JComboBox cbBancos = new JComboBox(directories);
         cbBancos.setEditable(true);
         JOptionPane.showMessageDialog(null, cbBancos, "Selecione o banco que deseja utilizar", JOptionPane.QUESTION_MESSAGE);
         return cbBancos.getSelectedItem().toString();

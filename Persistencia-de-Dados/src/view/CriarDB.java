@@ -26,7 +26,6 @@ public class CriarDB extends javax.swing.JFrame {
      */
     public CriarDB() {
         usarDB = new UsarDB();
-        systemControl = new SystemControl();
         usarDB.setTelaInicial(this);
         initComponents();
     }
@@ -242,9 +241,7 @@ public class CriarDB extends javax.swing.JFrame {
     }
 
     public static String dialogSelecionarBd() {
-        Path currentRelativePath = Paths.get("");
-        String s = currentRelativePath.toAbsolutePath().toString();
-        File file = new File(s + File.separator + "databases");
+        File file = new File(SystemControl.buscaCaminho());
         String[] directories = file.list((File current, String name) -> new File(current, name).isDirectory());
 
         JComboBox cbBancos = new JComboBox(directories);

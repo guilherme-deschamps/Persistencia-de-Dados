@@ -16,9 +16,7 @@ import java.nio.file.Paths;
 public class SystemControl {
 
     public String createDatabase(String nome) {
-        Path currentRelativePath = Paths.get("");
-        String s = currentRelativePath.toAbsolutePath().toString();
-        File diretorio = new File(s + File.separator + "databases" + File.separator + nome);
+        File diretorio = new File(buscaCaminho() + File.separator + nome);
         if(!diretorio.exists()){
             diretorio.mkdirs();
             return "Banco de dados criado com sucesso!";
@@ -41,6 +39,12 @@ public class SystemControl {
             }
         }
         return retorno;
+    }
+    
+    public static String buscaCaminho(){
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+        return s + File.separator + "databases";
     }
 
 }

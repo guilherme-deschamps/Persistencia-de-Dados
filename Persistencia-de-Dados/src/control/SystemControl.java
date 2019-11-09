@@ -55,4 +55,18 @@ public class SystemControl {
         return s + File.separator + "databases";
     }
     
+    public static String recebeComando(String comando){
+        CodePointCharStream inputStream = CharStreams.fromString(comando);
+        SQLiteLexer lexer = new SQLiteLexer(inputStream);
+        CommonTokenStream cts = new CommonTokenStream(lexer);
+        SQLiteParser parser = new SQLiteParser(cts);
+        parser.setBuildParseTree(true);
+        ParseTree tree = parser.parse();
+        ParseTreeWalker p = new ParseTreeWalker();
+        p.walk(new SQLiteBaseListener(), tree);
+        
+        return "Comando recebido.";
+    }
+   
+
 }

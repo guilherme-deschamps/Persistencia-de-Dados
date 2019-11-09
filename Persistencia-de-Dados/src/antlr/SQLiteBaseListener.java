@@ -7,6 +7,7 @@ import model.AntLR.SQLiteParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import models.Create;
 
 /**
  * This class provides an empty implementation of {@link SQLiteListener}, which
@@ -15,9 +16,12 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  */
 public class SQLiteBaseListener implements SQLiteListener {
 
+    Create create;
+
     String nomeTabela;
     String cmdSelect;
     String cmdInsert;
+    String colunaAtual = "";
 
     /**
      * {@inheritDoc}
@@ -270,7 +274,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
-        System.out.println("Comando create table");
+        create = new Create();
     }
 
     /**
@@ -822,7 +826,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterType_name(SQLiteParser.Type_nameContext ctx) {
-        System.out.println("Tipo da coluna " + ctx.getText());
+        create.addColuna(colunaAtual, ctx.getText());
     }
 
     /**
@@ -1507,7 +1511,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterTable_name(SQLiteParser.Table_nameContext ctx) {
-            this.nomeTabela = ctx.getText();
+        this.nomeTabela = ctx.getText();
     }
 
     /**
@@ -1574,7 +1578,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterColumn_name(SQLiteParser.Column_nameContext ctx) {
-        System.out.println("Nome da coluna " + ctx.getText());
+        colunaAtual = ctx.getText();
     }
 
     /**

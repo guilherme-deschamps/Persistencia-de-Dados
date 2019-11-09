@@ -26,5 +26,21 @@ public class SystemControl {
             return "Já existe um banco de dados com o nome informado. Tente novamente!";
         }
     }
+    
+    public static boolean validaNome(String nome) {
+        String caracteresPermitidos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_";
+        boolean retorno = true;
+        if (nome.length() > 20 || nome.length() < 1) {
+            retorno = false;
+        } else {
+            for (char c : nome.toCharArray()) {
+                if (!caracteresPermitidos.contains(String.valueOf(c))) {
+                    retorno = false;
+                    break;
+                }
+            }
+        }
+        return retorno;
+    }
 
 }

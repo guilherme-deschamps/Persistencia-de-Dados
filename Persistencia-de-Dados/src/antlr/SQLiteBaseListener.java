@@ -16,6 +16,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public class SQLiteBaseListener implements SQLiteListener {
 
     String nomeTabela;
+    String cmdSelect;
+    String cmdInsert;
 
     /**
      * {@inheritDoc}
@@ -533,7 +535,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterInsert_stmt(SQLiteParser.Insert_stmtContext ctx) {
-        System.out.println("Comando insert");
+        this.cmdInsert = ctx.getText();
     }
 
     /**
@@ -1217,7 +1219,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterSelect_core(SQLiteParser.Select_coreContext ctx) {
-        System.out.println("Comando select");
+        this.cmdSelect = ctx.getText();
     }
 
     /**

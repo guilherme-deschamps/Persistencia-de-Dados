@@ -191,10 +191,14 @@ public class CriarDB extends javax.swing.JFrame {
 
     private void btCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCriarActionPerformed
         // TODO add your handling code here:
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja criar o banco de dados \"" + tfNomeBanco.getText() + "\"?");
-        if (resposta == 0) {
-            String retorno = systemControl.createDatabase(tfNomeBanco.getText());
-            JOptionPane.showMessageDialog(null, retorno);
+        if (!validaNome(tfNomeBanco.getText())) {
+            JOptionPane.showMessageDialog(null, "O nome de banco informado é inválido. Tente novamente!");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(null, "Deseja criar o banco de dados \"" + tfNomeBanco.getText() + "\"?");
+            if (resposta == 0) {
+                String retorno = systemControl.createDatabase(tfNomeBanco.getText());
+                JOptionPane.showMessageDialog(null, retorno);
+            }
         }
         tfNomeBanco.setText("");
     }//GEN-LAST:event_btCriarActionPerformed
@@ -242,6 +246,21 @@ public class CriarDB extends javax.swing.JFrame {
         return cbBancos.getSelectedItem().toString();
     }
 
+    public static boolean validaNome(String nome) {
+        String caracteresPermitidos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_";
+        boolean retorno = true;
+        if (nome.length() > 20 || nome.length() < 1) {
+            retorno = false;
+        } else {
+            for (char c : nome.toCharArray()) {
+                if (!caracteresPermitidos.contains(String.valueOf(c))) {
+                    retorno = false;
+                    break;
+                }
+            }
+        }
+        return retorno;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCriar;
     private javax.swing.JButton btSelBanco;

@@ -4,7 +4,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import br.udesc.udescdb.SQLiteBaseListener;
+import antlr.SQLiteBaseListener;
 import br.udesc.udescdb.SQLiteLexer;
 import model.AntLR.SQLiteParser;
 

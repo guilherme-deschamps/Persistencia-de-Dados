@@ -16,13 +16,9 @@ import java.util.Map;
  */
 public class Create {
     Map<String, String> colunas = new HashMap<>();
-    List<String> linhas = new ArrayList<>();
 
     public void addColuna(String coluna, String tipoColuna){
         colunas.put(coluna, tipoColuna);
     }
     
-    public void addLinha(String linha){
-        linhas.add(linha);
-    }
 }

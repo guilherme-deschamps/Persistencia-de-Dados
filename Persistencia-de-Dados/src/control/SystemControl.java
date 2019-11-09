@@ -5,9 +5,17 @@
  */
 package control;
 
+import antlr.SQLiteBaseListener;
+import br.udesc.udescdb.SQLiteLexer;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import model.AntLR.SQLiteParser;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CodePointCharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 /**
  *
@@ -41,10 +49,17 @@ public class SystemControl {
         return retorno;
     }
     
-    public static String buscaCaminho(){
-        Path currentRelativePath = Paths.get("");
-        String s = currentRelativePath.toAbsolutePath().toString();
-        return s + File.separator + "databases";
+    public static String recebeComando(String comando){
+        CodePointCharStream inputStream = CharStreams.fromString(comando);
+        SQLiteLexer lexer = new SQLiteLexer(inputStream);
+        CommonTokenStream cts = new CommonTokenStream(lexer);
+        SQLiteParser parser = new SQLiteParser(cts);
+        parser.setBuildParseTree(true);
+        ParseTree tree = parser.parse();
+        ParseTreeWalker p = new ParseTreeWalker();
+        p.walk(new SQLiteBaseListener(), tree);
+        
+        return "Comando recebido.";
     }
 
 }

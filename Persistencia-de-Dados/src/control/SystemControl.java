@@ -49,6 +49,12 @@ public class SystemControl {
         return retorno;
     }
     
+    public static String buscaCaminho(){
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+        return s + File.separator + "databases";
+    }
+    
     public static String recebeComando(String comando){
         CodePointCharStream inputStream = CharStreams.fromString(comando);
         SQLiteLexer lexer = new SQLiteLexer(inputStream);
@@ -61,5 +67,6 @@ public class SystemControl {
         
         return "Comando recebido.";
     }
+   
 
 }

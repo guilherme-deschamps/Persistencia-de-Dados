@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.SystemControl;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -13,12 +14,16 @@ import javax.swing.JOptionPane;
  * @author guilh
  */
 public class CriarDB extends javax.swing.JFrame {
+
     UsarDB usarDB;
+    SystemControl systemControl;
+
     /**
      * Creates new form TelaInicial
      */
     public CriarDB() {
         usarDB = new UsarDB();
+        systemControl = new SystemControl();
         usarDB.setTelaInicial(this);
         initComponents();
     }
@@ -57,6 +62,11 @@ public class CriarDB extends javax.swing.JFrame {
         btCriar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         btCriar.setText("Criar");
         btCriar.setName("btCriar"); // NOI18N
+        btCriar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCriarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -179,6 +189,16 @@ public class CriarDB extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_btSelBancoActionPerformed
 
+    private void btCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCriarActionPerformed
+        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja criar o banco de dados \"" + tfNomeBanco.getText() + "\"?");
+        if (resposta == 0) {
+            String retorno = systemControl.createDatabase(tfNomeBanco.getText());
+            JOptionPane.showMessageDialog(null, retorno);
+        }
+        tfNomeBanco.setText("");
+    }//GEN-LAST:event_btCriarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -214,7 +234,7 @@ public class CriarDB extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public static String dialogSelecionarBd(String[] listaBancos) {
         JComboBox cbBancos = new JComboBox(listaBancos);
         cbBancos.setEditable(true);

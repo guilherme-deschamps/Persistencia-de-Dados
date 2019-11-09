@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
 public class CriarDB extends javax.swing.JFrame {
 
     UsarDB usarDB;
-    SystemControl systemControl;
 
     /**
      * Creates new form TelaInicial
@@ -197,7 +196,7 @@ public class CriarDB extends javax.swing.JFrame {
         } else {
             int resposta = JOptionPane.showConfirmDialog(null, "Deseja criar o banco de dados \"" + tfNomeBanco.getText() + "\"?");
             if (resposta == 0) {
-                String retorno = systemControl.createDatabase(tfNomeBanco.getText());
+                String retorno = SystemControl.createDatabase(tfNomeBanco.getText());
                 JOptionPane.showMessageDialog(null, retorno);
             }
         }

@@ -5,9 +5,17 @@
  */
 package control;
 
+import antlr.SQLiteBaseListener;
+import br.udesc.udescdb.SQLiteLexer;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import model.AntLR.SQLiteParser;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CodePointCharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 /**
  *
@@ -15,7 +23,7 @@ import java.nio.file.Paths;
  */
 public class SystemControl {
 
-    public String createDatabase(String nome) {
+    public static String createDatabase(String nome) {
         File diretorio = new File(buscaCaminho() + File.separator + nome);
         if(!diretorio.exists()){
             diretorio.mkdirs();
@@ -46,5 +54,5 @@ public class SystemControl {
         String s = currentRelativePath.toAbsolutePath().toString();
         return s + File.separator + "databases";
     }
-
+    
 }

@@ -31,8 +31,8 @@ public class UsarDB extends JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        taComandos = new javax.swing.JTextArea();
+        btExecutar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         lbTituloBanco = new javax.swing.JLabel();
@@ -46,12 +46,17 @@ public class UsarDB extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        taComandos.setColumns(20);
+        taComandos.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        taComandos.setRows(5);
+        jScrollPane1.setViewportView(taComandos);
 
-        jButton1.setText("Executar");
+        btExecutar.setText("Executar");
+        btExecutar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExecutarActionPerformed(evt);
+            }
+        });
 
         jTable1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -95,7 +100,7 @@ public class UsarDB extends JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btExecutar)
                 .addGap(67, 67, 67))
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
@@ -114,7 +119,7 @@ public class UsarDB extends JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btExecutar)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
@@ -122,6 +127,10 @@ public class UsarDB extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btExecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExecutarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btExecutarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,7 +176,7 @@ public class UsarDB extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btExecutar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -178,7 +187,7 @@ public class UsarDB extends JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbTituloBanco;
+    private javax.swing.JTextArea taComandos;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,11 +18,19 @@ public class SQLiteBaseListener implements SQLiteListener {
 
     Create create;
 
-    String nomeTabela;
+    String database;
     String cmdSelect;
     String cmdInsert;
     String colunaAtual = "";
 
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
+    }
+    
     /**
      * {@inheritDoc}
      *
@@ -275,6 +283,7 @@ public class SQLiteBaseListener implements SQLiteListener {
     @Override
     public void enterCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
         create = new Create();
+        create.setDatabase(database);
     }
 
     /**
@@ -286,6 +295,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void exitCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
+        create.createTable();
     }
 
     /**
@@ -1511,7 +1521,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterTable_name(SQLiteParser.Table_nameContext ctx) {
-        this.nomeTabela = ctx.getText();
+        create.setTableName(ctx.getText());
     }
 
     /**

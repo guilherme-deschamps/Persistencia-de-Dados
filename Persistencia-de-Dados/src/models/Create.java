@@ -50,7 +50,6 @@ public class Create {
         try {
             table.createNewFile();
         } catch (IOException ex) {
-            System.out.println("deu ruim");
         }
     }
 

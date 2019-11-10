@@ -166,16 +166,21 @@ public class CriarDB extends javax.swing.JFrame {
 
     private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed
         // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja mesmo sair do sistema?");
+        if(resposta == 0)
+            System.exit(0);
     }//GEN-LAST:event_mnSairActionPerformed
 
     private void mnUsarBdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnUsarBdActionPerformed
         // TODO add your handling code here:List<String> bancos = new ArrayList();
         String nomeBd = dialogSelecionarBd();
-        usarDB.setTitle("Prompt de Comando - " + nomeBd);
-        usarDB.setLbTituloBanco("Prompt de Comando - " + nomeBd);
-        usarDB.setDatabase(nomeBd);
-        usarDB.setVisible(true);
-        setVisible(false);
+        if (!nomeBd.equals("")) {
+            usarDB.setTitle("Prompt de Comando - " + nomeBd);
+            usarDB.setLbTituloBanco("Prompt de Comando - " + nomeBd);
+            usarDB.setDatabase(nomeBd);
+            usarDB.setVisible(true);
+            setVisible(false);
+        }
     }//GEN-LAST:event_mnUsarBdActionPerformed
 
     private void mnCriarBdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCriarBdActionPerformed
@@ -183,13 +188,14 @@ public class CriarDB extends javax.swing.JFrame {
     }//GEN-LAST:event_mnCriarBdActionPerformed
 
     private void btSelBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelBancoActionPerformed
-
         String nomeBd = dialogSelecionarBd();
-        usarDB.setTitle("Prompt de Comando - " + nomeBd);
-        usarDB.setLbTituloBanco("Prompt de Comando - " + nomeBd);
-        usarDB.setDatabase(nomeBd);
-        usarDB.setVisible(true);
-        setVisible(false);
+        if (!nomeBd.equals("")) {
+            usarDB.setTitle("Prompt de Comando - " + nomeBd);
+            usarDB.setLbTituloBanco("Prompt de Comando - " + nomeBd);
+            usarDB.setDatabase(nomeBd);
+            usarDB.setVisible(true);
+            setVisible(false);
+        }
     }//GEN-LAST:event_btSelBancoActionPerformed
 
     private void btCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCriarActionPerformed
@@ -245,14 +251,17 @@ public class CriarDB extends javax.swing.JFrame {
     public String dialogSelecionarBd() {
         File file = new File(systemControl.buscaCaminho());
         String[] directories = file.list((File current, String name) -> new File(current, name).isDirectory());
+        String[] comboStrings = new String[directories.length + 1];
+        comboStrings[0] = "";
+        System.arraycopy(directories, 0, comboStrings, 1, directories.length);
 
-        JComboBox cbBancos = new JComboBox(directories);
+        JComboBox cbBancos = new JComboBox(comboStrings);
         cbBancos.setEditable(true);
         JOptionPane.showMessageDialog(null, cbBancos, "Selecione o banco que deseja utilizar", JOptionPane.QUESTION_MESSAGE);
         return cbBancos.getSelectedItem().toString();
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCriar;
     private javax.swing.JButton btSelBanco;

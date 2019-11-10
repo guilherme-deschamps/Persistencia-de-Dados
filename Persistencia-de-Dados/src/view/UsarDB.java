@@ -18,11 +18,15 @@ public class UsarDB extends JFrame {
     private JFrame telaInicial;
     private String database;
     private SystemControl systemControl = new SystemControl();
+
     /**
      * Creates new form UsarDB
      */
     public UsarDB() {
         initComponents();
+    }
+
+    public void setCriarDb(CriarDB criarDb) {
     }
 
     /**
@@ -42,16 +46,16 @@ public class UsarDB extends JFrame {
         lbTituloBanco = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnCriarBd = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        mnSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         taComandos.setColumns(20);
-        taComandos.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        taComandos.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         taComandos.setRows(5);
         jScrollPane1.setViewportView(taComandos);
 
@@ -80,19 +84,32 @@ public class UsarDB extends JFrame {
 
         jMenu1.setText("Banco de dados");
 
-        jMenuItem1.setText("Criar banco de dados");
-        jMenu1.add(jMenuItem1);
+        mnCriarBd.setText("Criar banco de dados");
+        mnCriarBd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnCriarBdActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnCriarBd);
         jMenu1.add(jSeparator1);
 
+        jMenuItem2.setBackground(new java.awt.Color(110, 110, 110));
+        jMenuItem2.setForeground(new java.awt.Color(180, 180, 180));
         jMenuItem2.setText("Usar banco de dados");
+        jMenuItem2.setEnabled(false);
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Ajuda");
 
-        jMenuItem3.setText("Sair");
-        jMenu2.add(jMenuItem3);
+        mnSair.setText("Sair");
+        mnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnSairActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnSair);
 
         jMenuBar1.add(jMenu2);
 
@@ -138,6 +155,20 @@ public class UsarDB extends JFrame {
         JOptionPane.showMessageDialog(rootPane, retorno);
     }//GEN-LAST:event_btExecutarActionPerformed
 
+    private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed
+        // TODO add your handling code here:        
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja mesmo sair do sistema?");
+        if (resposta == 0) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_mnSairActionPerformed
+
+    private void mnCriarBdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCriarBdActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        telaInicial.setVisible(true);
+    }//GEN-LAST:event_mnCriarBdActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -172,12 +203,12 @@ public class UsarDB extends JFrame {
             }
         });
     }
-    
-    public void setTelaInicial(JFrame telaInicial){
+
+    public void setTelaInicial(JFrame telaInicial) {
         this.telaInicial = telaInicial;
     }
-    
-    public void setLbTituloBanco(String lbTituloBanco){
+
+    public void setLbTituloBanco(String lbTituloBanco) {
         this.lbTituloBanco.setText(lbTituloBanco);
     }
 
@@ -188,20 +219,20 @@ public class UsarDB extends JFrame {
     public void setDatabase(String database) {
         this.database = database;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btExecutar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbTituloBanco;
+    private javax.swing.JMenuItem mnCriarBd;
+    private javax.swing.JMenuItem mnSair;
     private javax.swing.JTextArea taComandos;
     // End of variables declaration//GEN-END:variables
 }

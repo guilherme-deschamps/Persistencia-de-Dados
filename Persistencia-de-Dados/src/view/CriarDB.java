@@ -170,9 +170,9 @@ public class CriarDB extends javax.swing.JFrame {
 
     private void mnUsarBdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnUsarBdActionPerformed
         // TODO add your handling code here:List<String> bancos = new ArrayList();
-        String nomeBd = "Prompt de Comando - " + dialogSelecionarBd();
-        usarDB.setTitle(nomeBd);
-        usarDB.setLbTituloBanco(nomeBd);
+        String nomeBd = dialogSelecionarBd();
+        usarDB.setTitle("Prompt de Comando - " + nomeBd);
+        usarDB.setLbTituloBanco("Prompt de Comando - " + nomeBd);
         usarDB.setDatabase(nomeBd);
         usarDB.setVisible(true);
         setVisible(false);
@@ -184,9 +184,9 @@ public class CriarDB extends javax.swing.JFrame {
 
     private void btSelBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelBancoActionPerformed
 
-        String nomeBd = "Prompt de Comando - " + dialogSelecionarBd();
-        usarDB.setTitle("nomeBd");
-        usarDB.setLbTituloBanco(nomeBd);
+        String nomeBd = dialogSelecionarBd();
+        usarDB.setTitle("Prompt de Comando - " + nomeBd);
+        usarDB.setLbTituloBanco("Prompt de Comando - " + nomeBd);
         usarDB.setDatabase(nomeBd);
         usarDB.setVisible(true);
         setVisible(false);

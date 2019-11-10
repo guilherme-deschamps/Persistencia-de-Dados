@@ -7,6 +7,7 @@ package models;
 
 import control.SystemControl;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,12 +18,13 @@ import java.util.Map;
  * @author Lucas
  */
 public class Create {
+
     Map<String, String> colunas = new HashMap<>();
     SystemControl systemControl = new SystemControl();
     String tableName;
     String database;
 
-    public void addColuna(String coluna, String tipoColuna){
+    public void addColuna(String coluna, String tipoColuna) {
         colunas.put(coluna, tipoColuna);
     }
 
@@ -41,12 +43,15 @@ public class Create {
     public void setTableName(String nome) {
         this.tableName = nome;
     }
-    
-    
-    
-    public void createTable(){
+
+    public void createTable() {
         String path = systemControl.buscaCaminho() + File.separator + database + File.separator + tableName + ".dat";
         File table = new File(path);
+        try {
+            table.createNewFile();
+        } catch (IOException ex) {
+            System.out.println("deu ruim");
+        }
     }
-    
+
 }

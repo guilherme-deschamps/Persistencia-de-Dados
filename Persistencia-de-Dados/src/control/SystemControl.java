@@ -67,7 +67,7 @@ public class SystemControl {
         parser.setBuildParseTree(true);
         ParseTree tree = parser.parse();
         ParseTreeWalker p = new ParseTreeWalker();
-        p.walk(new SQLiteBaseListener(), tree);
+        p.walk(sQLiteBaseListener, tree);
         
         return "Comando recebido.";
     }

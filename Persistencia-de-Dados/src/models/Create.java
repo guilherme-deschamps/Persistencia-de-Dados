@@ -7,7 +7,9 @@ package models;
 
 import control.SystemControl;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,13 +46,23 @@ public class Create {
         this.tableName = nome;
     }
 
-    public void createTable() {
+    public void createTable() throws FileNotFoundException, IOException {
         String path = systemControl.buscaCaminho() + File.separator + database + File.separator + tableName + ".dat";
         File table = new File(path);
         try {
             table.createNewFile();
         } catch (IOException ex) {
         }
+
+        RandomAccessFile raf = new RandomAccessFile(path, "rw");
+        
+        for(String key : colunas.keySet()){
+        raf.writeChars(key);
+        raf.writeChar('ä');
+        raf.writeChars(colunas.get(key));
+        raf.writeChar('ü');
+        }
+        raf.writeChar(';');
     }
 
 }

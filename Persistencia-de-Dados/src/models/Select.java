@@ -47,29 +47,32 @@ public class Select {
     public List<HashMap<String, String>> getMapColunasArquivo(RandomAccessFile raf) {
         try {
             List<HashMap<String, String>> listColunasOrdenadas = new ArrayList<>();
-            HashMap<String,String> mapColunas = new HashMap<>();
+            HashMap<String, String> mapColunas = new HashMap<>();
 
-            String s = "";
+            String s;
             String colunaAtual = "";
             String tipoAtual = "";
             char c;
+            c = raf.readChar();
             do {
-                c = raf.readChar();
-                    while (c != 'ä') {
-                        colunaAtual += c;
-                        c = raf.readChar();
-                    }
+                s = "";
+                while (c != 'ä') {
+                    colunaAtual += c;
                     c = raf.readChar();
-                    while (c != 'ü'){
-                        tipoAtual += c;
-                        c = raf.readChar();
-                    }
-                    mapColunas.put(colunaAtual, tipoAtual);
-                    listColunasOrdenadas.add(mapColunas);
-                    mapColunas = new HashMap<>();
-                    colunaAtual = "";
-                    tipoAtual = "";
-            } while (!s.equals(';'));
+                }
+                c = raf.readChar();
+                while (c != 'ü') {
+                    tipoAtual += c;
+                    c = raf.readChar();
+                }
+                mapColunas.put(colunaAtual, tipoAtual);
+                listColunasOrdenadas.add(mapColunas);
+                mapColunas = new HashMap<>();
+                colunaAtual = "";
+                tipoAtual = "";
+                c = raf.readChar();
+                s += c;
+            } while (!s.equals(";"));
             return listColunasOrdenadas;
         } catch (IOException ex) {
             return null;

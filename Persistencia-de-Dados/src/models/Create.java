@@ -7,7 +7,6 @@ package models;
 
 import control.SystemControl;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
@@ -58,6 +57,7 @@ public class Create {
                 raf.writeChar('ü');
             }
             raf.writeChar(';');
+            raf.writeChar('\n');
             raf.close();
         } catch (IOException ex) {
         }

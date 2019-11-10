@@ -20,14 +20,13 @@ import java.util.Map;
  */
 public class Insert {
 
-    SystemControl systemControl;
+    SystemControl systemControl = new SystemControl();
     String tableName;
     String database;
     List<String> colunas = new ArrayList<>();
-    List<Object> dados = new ArrayList<>();
-    Map<String, Object> mapColunasDados = new HashMap<>();
+    List<String> dados = new ArrayList<>();
+    Map<String, String> mapColunasDados = new HashMap<>();
     List<HashMap<String, String>> listColunasArquivo = new ArrayList<>();
-    RandomAccessFile raf;
 
     public String getTableName() {
         return tableName;
@@ -53,27 +52,44 @@ public class Insert {
         this.colunas = colunas;
     }
 
-    public List<Object> getDados() {
+    public List<String> getDados() {
         return dados;
     }
 
-    public void setDados(List<Object> dados) {
+    public void setDados(List<String> dados) {
         this.dados = dados;
     }
 
     public void insereDados() {
         try {
-            raf = new RandomAccessFile(systemControl.buscaCaminho() + File.separator + database + File.separator + tableName + ".dat", "rw");
+            RandomAccessFile raf = new RandomAccessFile(systemControl.buscaCaminho() + File.separator + database + File.separator + tableName + ".dat", "rw");
             populaListas(raf);
 
+            // Para cada par coluna/tipo do arquivo
             for (HashMap map : listColunasArquivo) {
+                // Só terá uma coluna dentro. A ideia de Map foi usada para associar coluna/tipo, no formado key/value.
                 for (Object s : map.keySet()) {
                     String coluna = (String) s;
+                    raf.seek(raf.length());
+                    // Caso o map de dados por coluna tiver algum dado para a coluna atual, insere o dado nela. Se não, insere "null" (∅)
                     if (mapColunasDados.containsKey(coluna)) {
-                        
+                        // Os dados podem ser int, char ou float.
+                        if (map.get(s).equals("int")) {
+                            raf.writeInt(Integer.parseInt(mapColunasDados.get(coluna)));
+                        } else if (map.get(s).equals("char")) {
+                            raf.writeChars(mapColunasDados.get(coluna));
+                        } else {
+                            raf.writeFloat(Float.parseFloat(mapColunasDados.get(coluna)));
+                        }
+                    } else {
+                        raf.writeChar('∅');
                     }
                 }
+                raf.writeChar('ä');
             }
+            raf.writeChar(';');
+            raf.writeChar('\n');
+            raf.close();
         } catch (IOException ex) {
         }
     }

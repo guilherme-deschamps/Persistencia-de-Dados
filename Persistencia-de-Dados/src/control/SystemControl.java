@@ -8,7 +8,6 @@ package control;
 import antlr.SQLiteBaseListener;
 import br.udesc.udescdb.SQLiteLexer;
 import java.io.File;
-import java.io.RandomAccessFile;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import model.AntLR.SQLiteParser;
@@ -72,8 +71,4 @@ public class SystemControl {
         
         return "Comando recebido.";
     }
-   
-    public int buscaFimDoArquivo(RandomAccessFile raf){
-    }
-
 }

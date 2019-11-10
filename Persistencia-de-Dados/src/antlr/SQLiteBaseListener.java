@@ -298,6 +298,7 @@ public class SQLiteBaseListener implements SQLiteListener {
     @Override
     public void exitCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
         create.createTable();
+        create = null;
     }
 
     /**
@@ -565,6 +566,7 @@ public class SQLiteBaseListener implements SQLiteListener {
     @Override
     public void exitInsert_stmt(SQLiteParser.Insert_stmtContext ctx) {
         insert.insereDados();
+        insert = null;
     }
 
     /**
@@ -1250,6 +1252,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void exitSelect_core(SQLiteParser.Select_coreContext ctx) {
+        select = null;
     }
 
     /**

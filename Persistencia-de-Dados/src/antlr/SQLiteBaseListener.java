@@ -8,6 +8,8 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import models.Create;
+import models.Insert;
+import models.Select;
 
 /**
  * This class provides an empty implementation of {@link SQLiteListener}, which
@@ -17,10 +19,10 @@ import models.Create;
 public class SQLiteBaseListener implements SQLiteListener {
 
     Create create;
+    Insert insert;
+    Select select;
 
     String database;
-    String cmdSelect;
-    String cmdInsert;
     String colunaAtual = "";
 
     public String getDatabase() {
@@ -30,7 +32,7 @@ public class SQLiteBaseListener implements SQLiteListener {
     public void setDatabase(String nameDatabase) {
         this.database = nameDatabase;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -549,7 +551,8 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterInsert_stmt(SQLiteParser.Insert_stmtContext ctx) {
-        this.cmdInsert = ctx.getText();
+        insert = new Insert();
+        insert.setDatabase(database);
     }
 
     /**
@@ -561,6 +564,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void exitInsert_stmt(SQLiteParser.Insert_stmtContext ctx) {
+        insert.insereDados();
     }
 
     /**
@@ -1233,7 +1237,8 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterSelect_core(SQLiteParser.Select_coreContext ctx) {
-        this.cmdSelect = ctx.getText();
+        select = new Select();
+        select.setDatabase(database);
     }
 
     /**
@@ -1322,7 +1327,8 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterLiteral_value(SQLiteParser.Literal_valueContext ctx) {
-        System.out.println("Literal " + ctx.getText());
+        System.out.println("");
+        insert.getDados().add(ctx.getText());
     }
 
     /**
@@ -1521,7 +1527,13 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterTable_name(SQLiteParser.Table_nameContext ctx) {
-        create.setTableName(ctx.getText());
+        if (create != null) {
+            create.setTableName(ctx.getText());
+        } else if (insert != null) {
+            insert.setTableName(ctx.getText());
+        } else {
+            select.setTableName(ctx.getText());
+        }
     }
 
     /**
@@ -1588,7 +1600,11 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterColumn_name(SQLiteParser.Column_nameContext ctx) {
-        colunaAtual = ctx.getText();
+        if (create != null) {
+            colunaAtual = ctx.getText();
+        } else {
+            insert.getColunas().add(ctx.getText());
+        }
     }
 
     /**

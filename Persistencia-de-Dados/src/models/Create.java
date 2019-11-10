@@ -46,23 +46,22 @@ public class Create {
         this.tableName = nome;
     }
 
-    public void createTable() throws FileNotFoundException, IOException {
+    public void createTable() {
         String path = systemControl.buscaCaminho() + File.separator + database + File.separator + tableName + ".dat";
-        File table = new File(path);
         try {
-            table.createNewFile();
+            RandomAccessFile raf = new RandomAccessFile(path, "rw");
+
+            for (String key : colunas.keySet()) {
+                raf.writeChars(key);
+                raf.writeChar('ä');
+                raf.writeChars(colunas.get(key));
+                raf.writeChar('ü');
+            }
+            raf.writeChar(';');
+            raf.close();
         } catch (IOException ex) {
         }
 
-        RandomAccessFile raf = new RandomAccessFile(path, "rw");
-        
-        for(String key : colunas.keySet()){
-        raf.writeChars(key);
-        raf.writeChar('ä');
-        raf.writeChars(colunas.get(key));
-        raf.writeChar('ü');
-        }
-        raf.writeChar(';');
     }
 
 }

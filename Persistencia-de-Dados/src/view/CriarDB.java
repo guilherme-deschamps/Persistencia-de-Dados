@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 public class CriarDB extends javax.swing.JFrame {
 
     UsarDB usarDB;
+    private SystemControl systemControl = new SystemControl();
 
     /**
      * Creates new form TelaInicial
@@ -172,6 +173,7 @@ public class CriarDB extends javax.swing.JFrame {
         String nomeBd = "Prompt de Comando - " + dialogSelecionarBd();
         usarDB.setTitle(nomeBd);
         usarDB.setLbTituloBanco(nomeBd);
+        usarDB.setDatabase(nomeBd);
         usarDB.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_mnUsarBdActionPerformed
@@ -185,18 +187,19 @@ public class CriarDB extends javax.swing.JFrame {
         String nomeBd = "Prompt de Comando - " + dialogSelecionarBd();
         usarDB.setTitle("nomeBd");
         usarDB.setLbTituloBanco(nomeBd);
+        usarDB.setDatabase(nomeBd);
         usarDB.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_btSelBancoActionPerformed
 
     private void btCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCriarActionPerformed
         // TODO add your handling code here:
-        if (!SystemControl.validaNome(tfNomeBanco.getText())) {
+        if (!systemControl.validaNome(tfNomeBanco.getText())) {
             JOptionPane.showMessageDialog(null, "O nome de banco informado é inválido. Tente novamente!");
         } else {
             int resposta = JOptionPane.showConfirmDialog(null, "Deseja criar o banco de dados \"" + tfNomeBanco.getText() + "\"?");
             if (resposta == 0) {
-                String retorno = SystemControl.createDatabase(tfNomeBanco.getText());
+                String retorno = systemControl.createDatabase(tfNomeBanco.getText());
                 JOptionPane.showMessageDialog(null, retorno);
             }
         }
@@ -239,8 +242,8 @@ public class CriarDB extends javax.swing.JFrame {
         });
     }
 
-    public static String dialogSelecionarBd() {
-        File file = new File(SystemControl.buscaCaminho());
+    public String dialogSelecionarBd() {
+        File file = new File(systemControl.buscaCaminho());
         String[] directories = file.list((File current, String name) -> new File(current, name).isDirectory());
 
         JComboBox cbBancos = new JComboBox(directories);

@@ -5,7 +5,9 @@
  */
 package view;
 
+import control.SystemControl;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,6 +16,8 @@ import javax.swing.JFrame;
 public class UsarDB extends JFrame {
 
     private JFrame telaInicial;
+    private String database;
+    private SystemControl systemControl = new SystemControl();
     /**
      * Creates new form UsarDB
      */
@@ -130,6 +134,8 @@ public class UsarDB extends JFrame {
 
     private void btExecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExecutarActionPerformed
         // TODO add your handling code here:
+        String retorno = systemControl.recebeComando(taComandos.getText(), database);
+        JOptionPane.showMessageDialog(rootPane, retorno);
     }//GEN-LAST:event_btExecutarActionPerformed
 
     /**
@@ -175,6 +181,14 @@ public class UsarDB extends JFrame {
         this.lbTituloBanco.setText(lbTituloBanco);
     }
 
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btExecutar;
     private javax.swing.JMenu jMenu1;

@@ -22,8 +22,10 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
  * @author guilh
  */
 public class SystemControl {
-
-    public static String createDatabase(String nome) {
+    
+    private SQLiteBaseListener sQLiteBaseListener = new SQLiteBaseListener();
+    
+    public String createDatabase(String nome) {
         File diretorio = new File(buscaCaminho() + File.separator + nome);
         if(!diretorio.exists()){
             diretorio.mkdirs();
@@ -33,7 +35,7 @@ public class SystemControl {
         }
     }
     
-    public static boolean validaNome(String nome) {
+    public boolean validaNome(String nome) {
         String caracteresPermitidos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_";
         boolean retorno = true;
         if (nome.length() > 20 || nome.length() < 1) {
@@ -49,13 +51,15 @@ public class SystemControl {
         return retorno;
     }
     
-    public static String buscaCaminho(){
+    public String buscaCaminho(){
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
         return s + File.separator + "databases";
     }
     
-    public static String recebeComando(String comando){
+    public String recebeComando(String comando, String database){
+        sQLiteBaseListener.setDatabase(database);
+        
         CodePointCharStream inputStream = CharStreams.fromString(comando);
         SQLiteLexer lexer = new SQLiteLexer(inputStream);
         CommonTokenStream cts = new CommonTokenStream(lexer);

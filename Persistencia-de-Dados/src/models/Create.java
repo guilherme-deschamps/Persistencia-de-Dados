@@ -18,6 +18,7 @@ import java.util.Map;
  */
 public class Create {
     Map<String, String> colunas = new HashMap<>();
+    SystemControl systemControl = new SystemControl();
     String tableName;
     String database;
 
@@ -44,7 +45,8 @@ public class Create {
     
     
     public void createTable(){
-        String path = SystemControl.buscaCaminho() + File.separator + database + File.separator + tableName + ".dat";
+        String path = systemControl.buscaCaminho() + File.separator + database + File.separator + tableName + ".dat";
+        File table = new File(path);
     }
     
 }

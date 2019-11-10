@@ -27,8 +27,8 @@ public class SQLiteBaseListener implements SQLiteListener {
         return database;
     }
 
-    public void setDatabase(String database) {
-        this.database = database;
+    public void setDatabase(String nameDatabase) {
+        this.database = nameDatabase;
     }
     
     /**

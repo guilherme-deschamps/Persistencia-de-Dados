@@ -1,6 +1,6 @@
-package model.AntLR;
+package antlr;
 // Generated from SQLite.g4 by ANTLR 4.7.2
-import br.udesc.udescdb.SQLiteListener;
+import antlr.SQLiteListener;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;

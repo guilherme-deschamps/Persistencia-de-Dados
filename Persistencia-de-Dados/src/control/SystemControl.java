@@ -10,7 +10,9 @@ import br.udesc.udescdb.SQLiteLexer;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import model.AntLR.SQLiteParser;
+import antlr.SQLiteParser;
+import java.util.HashMap;
+import java.util.List;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -69,6 +71,16 @@ public class SystemControl {
         ParseTreeWalker p = new ParseTreeWalker();
         p.walk(sQLiteBaseListener, tree);
         
-        return "Comando recebido.";
+        if(sQLiteBaseListener.getRetornoCreate()!=null){
+            return sQLiteBaseListener.getRetornoCreate();
+        } else if(sQLiteBaseListener.getRetornoInsert() != null){
+            return sQLiteBaseListener.getRetornoInsert();
+        } else {
+            return "select_command";
+        }
+    }
+    
+    public HashMap<String, List<String>> getRetornoSelect(){
+        return sQLiteBaseListener.getRetornoSelect();
     }
 }

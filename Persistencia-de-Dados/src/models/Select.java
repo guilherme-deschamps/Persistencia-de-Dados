@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.util.Pair;
 
 /**
  *
@@ -44,10 +45,63 @@ public class Select {
         return null;
     }
 
-    public List<HashMap<String, String>> getMapColunasArquivo(RandomAccessFile raf) {
+    public HashMap<String, List<String>> getAllDadosArquivo() {
         try {
-            List<HashMap<String, String>> listColunasOrdenadas = new ArrayList<>();
-            HashMap<String, String> mapColunas = new HashMap<>();
+            RandomAccessFile raf
+                    = new RandomAccessFile(systemControl.buscaCaminho() + File.separator + database + File.separator + tableName + ".dat", "r");
+
+            List<Pair<String, String>> listaColunas = getMapColunasArquivo(raf);
+            HashMap<String, List<String>> result = new HashMap<>();
+            List<String> dados;
+            String dadoAtual = "";
+            char c;
+
+            // Cada elemento da lista de colunas é, na mesma ordem, uma coluna no arquivo.
+            for (int i = 0; i < listaColunas.size(); i++) {
+                dados = new ArrayList<>();
+                raf.seek(0);
+                raf.readLine();
+                while (raf.getFilePointer() != raf.length()) {
+                    int contSeparators = 0;
+                    // Move o ponteiro para a coluna correta
+                    while (contSeparators != i) {
+                        c = raf.readChar();
+                        if (c == 'ä') {
+                            contSeparators++;
+                        }
+                    }
+                    if (listaColunas.get(i).getValue().equals("int")) {
+                        dadoAtual += raf.readInt();
+                    } else if (listaColunas.get(i).getValue().equals("float")) {
+                        dadoAtual += raf.readFloat();
+                    } else {
+                        do {
+                            c = raf.readChar();
+                            dadoAtual += c;
+                        } while (c != 'ä');
+                        dadoAtual = dadoAtual.substring(0, dadoAtual.length() - 2);
+                    }
+                    dadoAtual = dadoAtual.replace("'", "");
+                    if (dadoAtual.contains("its_a_nullhere") || dadoAtual.contains("" + Integer.MAX_VALUE) || dadoAtual.contains("" + Float.MAX_VALUE)) {
+                        dados.add("null");
+                    } else {
+                        dados.add(dadoAtual);
+                    }
+                    dadoAtual = "";
+                    raf.readLine();
+                }
+                result.put(listaColunas.get(i).getKey(), dados);
+            }
+            return result;
+        } catch (IOException ex) {
+            return null;
+        }
+    }
+
+    public List<Pair<String, String>> getMapColunasArquivo(RandomAccessFile raf) {
+        try {
+            List<Pair<String, String>> listColunasOrdenadas = new ArrayList<>();
+            Pair<String, String> parColunaTipo;
 
             String s;
             String colunaAtual = "";
@@ -65,9 +119,8 @@ public class Select {
                     tipoAtual += c;
                     c = raf.readChar();
                 }
-                mapColunas.put(colunaAtual, tipoAtual);
-                listColunasOrdenadas.add(mapColunas);
-                mapColunas = new HashMap<>();
+                parColunaTipo = new Pair<>(colunaAtual, tipoAtual);
+                listColunasOrdenadas.add(parColunaTipo);
                 colunaAtual = "";
                 tipoAtual = "";
                 c = raf.readChar();

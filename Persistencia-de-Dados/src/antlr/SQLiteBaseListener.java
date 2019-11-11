@@ -1,9 +1,11 @@
 package antlr;
 
 // Generated from SQLite.g4 by ANTLR 4.7.2
-import br.udesc.udescdb.SQLiteListener;
+import antlr.SQLiteListener;
 import java.io.IOException;
-import model.AntLR.SQLiteParser;
+import java.util.HashMap;
+import java.util.List;
+import antlr.SQLiteParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -21,9 +23,39 @@ public class SQLiteBaseListener implements SQLiteListener {
     Create create;
     Insert insert;
     Select select;
+    
+    String retornoCreate;
+    String retornoInsert;
+    HashMap<String, List<String>> retornoSelect;
 
     String database;
     String colunaAtual = "";
+
+    public String getRetornoCreate() {
+        return retornoCreate;
+    }
+
+    public void setRetornoCreate(String retornoCreate) {
+        this.retornoCreate = retornoCreate;
+    }
+
+    public String getRetornoInsert() {
+        return retornoInsert;
+    }
+
+    public void setRetornoInsert(String retornoInsert) {
+        this.retornoInsert = retornoInsert;
+    }
+
+    public HashMap<String, List<String>> getRetornoSelect() {
+        return retornoSelect;
+    }
+
+    public void setRetornoSelect(HashMap<String, List<String>> retornoSelect) {
+        this.retornoSelect = retornoSelect;
+    }
+    
+    
 
     public String getDatabase() {
         return database;
@@ -284,6 +316,9 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
+        retornoCreate = null;
+        retornoInsert = null;
+        retornoSelect = null;
         create = new Create();
         create.setDatabase(database);
     }
@@ -297,7 +332,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void exitCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
-        create.createTable();
+        retornoCreate = create.createTable();
         create = null;
     }
 
@@ -552,6 +587,9 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterInsert_stmt(SQLiteParser.Insert_stmtContext ctx) {
+        retornoCreate = null;
+        retornoInsert = null;
+        retornoSelect = null;
         insert = new Insert();
         insert.setDatabase(database);
     }
@@ -565,7 +603,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void exitInsert_stmt(SQLiteParser.Insert_stmtContext ctx) {
-        insert.insereDados();
+        retornoInsert = insert.insereDados();
         insert = null;
     }
 
@@ -1239,6 +1277,9 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterSelect_core(SQLiteParser.Select_coreContext ctx) {
+        retornoCreate = null;
+        retornoInsert = null;
+        retornoSelect = null;
         select = new Select();
         select.setDatabase(database);
     }
@@ -1252,6 +1293,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void exitSelect_core(SQLiteParser.Select_coreContext ctx) {
+        retornoSelect = select.getAllDadosArquivo();
         select = null;
     }
 
@@ -1330,7 +1372,6 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterLiteral_value(SQLiteParser.Literal_valueContext ctx) {
-        System.out.println("");
         insert.getDados().add(ctx.getText());
     }
 

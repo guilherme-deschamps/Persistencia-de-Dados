@@ -6,6 +6,8 @@
 package view;
 
 import control.SystemControl;
+import java.util.HashMap;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -152,7 +154,12 @@ public class UsarDB extends JFrame {
     private void btExecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExecutarActionPerformed
         // TODO add your handling code here:
         String retorno = systemControl.recebeComando(taComandos.getText(), database);
-        JOptionPane.showMessageDialog(rootPane, retorno);
+        if (!retorno.equals("select_command")) {
+            JOptionPane.showMessageDialog(rootPane, retorno);
+        } else {
+            HashMap<String, List<String>> retornoSelect = systemControl.getRetornoSelect();
+            System.out.println(retornoSelect.toString());
+        }
     }//GEN-LAST:event_btExecutarActionPerformed
 
     private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed

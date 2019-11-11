@@ -22,7 +22,7 @@ public class Teste {
 		String insert = "insert into xpto (col1, col2) values (1, 'abc')";
 		String select = "select * from xpto";
 		
-		CodePointCharStream inputStream = CharStreams.fromString(insert);
+		CodePointCharStream inputStream = CharStreams.fromString(select);
 		SQLiteLexer lexer = new SQLiteLexer(inputStream);
 		CommonTokenStream cts = new CommonTokenStream(lexer);
 		SQLiteParser parser = new SQLiteParser(cts);

@@ -45,7 +45,7 @@ public class Create {
         this.tableName = nome;
     }
 
-    public void createTable() {
+    public String createTable() {
         String path = systemControl.buscaCaminho() + File.separator + database + File.separator + tableName + ".dat";
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "rw");
@@ -59,9 +59,9 @@ public class Create {
             raf.writeChar(';');
             raf.writeChar('\n');
             raf.close();
+            return "Tabela criada com sucesso!";
         } catch (IOException ex) {
+            return "Ocorreu um erro ao tentar criar a tabela. Tente novamente!";
         }
-
     }
-
 }

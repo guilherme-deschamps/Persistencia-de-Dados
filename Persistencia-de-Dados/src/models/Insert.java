@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.util.Pair;
 
 /**
  *
@@ -26,7 +27,7 @@ public class Insert {
     List<String> colunas = new ArrayList<>();
     List<String> dados = new ArrayList<>();
     Map<String, String> mapColunasDados = new HashMap<>();
-    List<HashMap<String, String>> listColunasArquivo = new ArrayList<>();
+    List<Pair<String, String>> listColunasArquivo = new ArrayList<>();
 
     public String getTableName() {
         return tableName;
@@ -60,29 +61,33 @@ public class Insert {
         this.dados = dados;
     }
 
-    public void insereDados() {
+    public String insereDados() {
         try {
             RandomAccessFile raf = new RandomAccessFile(systemControl.buscaCaminho() + File.separator + database + File.separator + tableName + ".dat", "rw");
             populaListas(raf);
 
             // Para cada par coluna/tipo do arquivo
-            for (HashMap map : listColunasArquivo) {
-                // Só terá uma coluna dentro. A ideia de Map foi usada para associar coluna/tipo, no formado key/value.
-                for (Object s : map.keySet()) {
-                    String coluna = (String) s;
-                    raf.seek(raf.length());
-                    // Caso o map de dados por coluna tiver algum dado para a coluna atual, insere o dado nela. Se não, insere "null" (∅)
+            for (Pair pair : listColunasArquivo) {
+                String coluna = (String) pair.getKey();
+                raf.seek(raf.length());
+                // Os dados podem ser int, char ou float. Para cada tipo, reservamos um elemento para ser seu respectivo "null".
+                if (pair.getValue().equals("int")) {
                     if (mapColunasDados.containsKey(coluna)) {
-                        // Os dados podem ser int, char ou float.
-                        if (map.get(s).equals("int")) {
-                            raf.writeInt(Integer.parseInt(mapColunasDados.get(coluna)));
-                        } else if (map.get(s).equals("char")) {
-                            raf.writeChars(mapColunasDados.get(coluna));
-                        } else {
-                            raf.writeFloat(Float.parseFloat(mapColunasDados.get(coluna)));
-                        }
+                        raf.writeInt(Integer.parseInt(mapColunasDados.get(coluna)));
                     } else {
-                        raf.writeChar('∅');
+                        raf.writeInt(Integer.MAX_VALUE);
+                    }
+                } else if (pair.getValue().equals("char")) {
+                    if (mapColunasDados.containsKey(coluna)) {
+                        raf.writeChars(mapColunasDados.get(coluna));
+                    } else {
+                        raf.writeChars("its_a_nullhere'");
+                    }
+                } else {
+                    if (mapColunasDados.containsKey(coluna)) {
+                        raf.writeFloat(Float.parseFloat(mapColunasDados.get(coluna)));
+                    } else {
+                        raf.writeFloat(Float.MAX_VALUE);
                     }
                 }
                 raf.writeChar('ä');
@@ -90,7 +95,9 @@ public class Insert {
             raf.writeChar(';');
             raf.writeChar('\n');
             raf.close();
+            return "Dados inseridos com sucesso!";
         } catch (IOException ex) {
+            return "Ocorreu um erro ao inserir os dados. Tente novamente!";
         }
     }
 

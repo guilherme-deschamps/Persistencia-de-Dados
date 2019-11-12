@@ -51,6 +51,8 @@ public class UsarDB extends JFrame {
         mnCriarBd = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        mnXml = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         mnSair = new javax.swing.JMenuItem();
 
@@ -100,6 +102,15 @@ public class UsarDB extends JFrame {
         jMenuItem2.setText("Usar banco de dados");
         jMenuItem2.setEnabled(false);
         jMenu1.add(jMenuItem2);
+        jMenu1.add(jSeparator2);
+
+        mnXml.setText("Inserir dados via XML");
+        mnXml.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnXmlActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnXml);
 
         jMenuBar1.add(jMenu1);
 
@@ -176,6 +187,17 @@ public class UsarDB extends JFrame {
         telaInicial.setVisible(true);
     }//GEN-LAST:event_mnCriarBdActionPerformed
 
+    private void mnXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnXmlActionPerformed
+        // TODO add your handling code here:
+        String rota = JOptionPane.showInputDialog("Insira a rota (desde C:) do arquivo XML. \nSugestão: vá pelo Explorer até o arquivo, clique no caminho, Ctrl+C, e após colar aqui adicione o nome do arquivo + .xml.");
+        rota = rota.replace("\\\\", "/");
+        systemControl.setDatabase(database);
+        boolean xmlValido = systemControl.validaXml(rota);
+        if (xmlValido) {
+            systemControl.inserePorXml(rota);
+        }
+    }//GEN-LAST:event_mnXmlActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -236,10 +258,12 @@ public class UsarDB extends JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbTituloBanco;
     private javax.swing.JMenuItem mnCriarBd;
     private javax.swing.JMenuItem mnSair;
+    private javax.swing.JMenuItem mnXml;
     private javax.swing.JTextArea taComandos;
     // End of variables declaration//GEN-END:variables
 }

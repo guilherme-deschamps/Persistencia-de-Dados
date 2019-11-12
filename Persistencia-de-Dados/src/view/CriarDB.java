@@ -9,6 +9,9 @@ import control.SystemControl;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -167,8 +170,9 @@ public class CriarDB extends javax.swing.JFrame {
     private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed
         // TODO add your handling code here:
         int resposta = JOptionPane.showConfirmDialog(null, "Deseja mesmo sair do sistema?");
-        if(resposta == 0)
+        if (resposta == 0) {
             System.exit(0);
+        }
     }//GEN-LAST:event_mnSairActionPerformed
 
     private void mnUsarBdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnUsarBdActionPerformed
@@ -257,8 +261,13 @@ public class CriarDB extends javax.swing.JFrame {
 
         JComboBox cbBancos = new JComboBox(comboStrings);
         cbBancos.setEditable(true);
-        JOptionPane.showMessageDialog(null, cbBancos, "Selecione o banco que deseja utilizar", JOptionPane.QUESTION_MESSAGE);
-        return cbBancos.getSelectedItem().toString();
+        JOptionPane.showMessageDialog(null, cbBancos, "Selecione o banco que deseja utilizar", JOptionPane.INFORMATION_MESSAGE);
+        if (Arrays.asList(comboStrings).contains(cbBancos.getSelectedItem().toString())) {
+            return cbBancos.getSelectedItem().toString();
+        } else {
+            JOptionPane.showMessageDialog(null, "O banco de dados informado é inválido. Tente novamente!");
+            return "";
+        }
     }
 
 
